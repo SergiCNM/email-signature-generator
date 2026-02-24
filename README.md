@@ -50,7 +50,7 @@ Para **ejecutar el build** (si deseas modificar el funcionamiento interno):
 ## 🔧 Desarrollo y Adaptación
 
 Si deseas adaptar este generador a otra empresa:
-1. Modifica la plantilla base `firma_final_optimizada_dist2.html` con el nuevo diseño.
+1. Modifica la plantilla base `firma_original.html` con el nuevo diseño.
 2. Ajusta las reglas de reemplazo en `build_app.py` para que coincidan con tus nuevas etiquetas.
 3. Ejecuta el script para generar el nuevo generador:
    ```bash
