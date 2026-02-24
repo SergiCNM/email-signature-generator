@@ -2,6 +2,9 @@
 
 Este proyecto es una herramienta interactiva diseñada para generar firmas de correo electrónico profesionales de alto impacto. Aunque está preconfigurado para el **IMB-CNM (CSIC)**, el sistema es totalmente flexible y puede ser adaptado para cualquier organización.
 
+<img width="1216" height="856" alt="image" src="https://github.com/user-attachments/assets/c5a64067-5b5c-4ebb-804e-d20a4fa63587" />
+
+
 ## 🚀 Descripción
 
 El proyecto consiste en un generador basado en web que permite a los usuarios personalizar sus datos personales (nombre, cargo, extensiones, imágenes de perfil) y descargar un archivo HTML listo para ser importado en clientes de correo como Outlook, Gmail o Thunderbird.
@@ -59,3 +62,4 @@ Si deseas adaptar este generador a otra empresa:
 
 ---
 *Desarrollado para el IMB-CNM (CSIC).*
+
