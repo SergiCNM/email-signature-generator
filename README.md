@@ -4,6 +4,15 @@ Este proyecto es una herramienta interactiva diseñada para generar firmas de co
 
 <img width="1216" height="856" alt="image" src="https://github.com/user-attachments/assets/c5a64067-5b5c-4ebb-804e-d20a4fa63587" />
 
+<table width="100%" border="0">
+   <tr>
+      <td width="48%"><img width="584" height="874" alt="image" src="https://github.com/user-attachments/assets/6722a008-d969-4807-94e3-7e32ad333804" /></td>
+      <td width="4%">&nbsp;</td>
+      <td width="48%"><img width="580" height="892" alt="image" src="https://github.com/user-attachments/assets/8d1abac2-b59c-452e-9345-8eb825f86d98" />
+</td>
+   </tr>
+</table>
+
 
 ## 🚀 Descripción
 
@@ -62,4 +71,5 @@ Si deseas adaptar este generador a otra empresa:
 
 ---
 *Desarrollado para el IMB-CNM (CSIC).*
+
 
