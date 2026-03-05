@@ -65,18 +65,40 @@ html = re.sub(
     html
 )
 
-# Replace Header Image
+# Replace Header Image - use dynamic width binding
 html = re.sub(
     r'<img border="0" style="width: 385px" alt="Institute of Microelectronics of Barcelona \(CSIC\)" title="Institute of Microelectronics of Barcelona \(CSIC\)" src="data:image/jpeg;base64,[^"]+" >',
-    r'<img border="0" style="width: 385px; max-height: 150px; object-fit: contain;" alt="Header" title="Header" :src="form.headerImage || defaultHeaderImage" >', 
+    '<img border="0" :style="{ width: headerImageWidth + \'px\', maxHeight: \'150px\', objectFit: \'contain\' }" alt="Header" title="Header" :src="form.headerImage || defaultHeaderImage" >', 
     html
 )
 
-# Inline table styles
+# Replace outer div width with dynamic binding
+html = html.replace(
+    '<div style="border: 1px solid #CCC; padding:2px; width: 390px; z-index:999;',
+    '<div :style="{ border: \'1px solid #CCC\', padding: \'2px\', width: form.cardWidth + \'px\', zIndex: 999,'
+)
+html = html.replace(
+    "-webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);\n-moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);\nbox-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);\"",
+    "WebkitBoxShadow: '5px 5px 5px 0px rgba(0,0,0,0.75)', MozBoxShadow: '5px 5px 5px 0px rgba(0,0,0,0.75)', boxShadow: '5px 5px 5px 0px rgba(0,0,0,0.75)' }\""
+)
+
+# Inline table styles - use dynamic width bindings
 html = html.replace('<table width="390" border="0" style="padding-top: 10px;">',
-                   '<table width="390" border="0" style="margin-top: 10px; border-collapse: separate; border-spacing: 2px;">')
+                   '<table :width="form.cardWidth" border="0" style="margin-top: 10px; border-collapse: separate; border-spacing: 2px;">')
 html = html.replace('<table width="250" border="0" style="padding: 0px;">',
-                   '<table width="250" border="0" style="padding: 0px; border-collapse: separate; border-spacing: 2px;">')
+                   '<table :width="form.leftWidth" border="0" style="padding: 0px; border-collapse: separate; border-spacing: 2px;">')
+
+# Replace left section td width
+html = html.replace('<td width="250" style="vertical-align:top;">',
+                   '<td :width="form.leftWidth" style="vertical-align:top;">')
+
+# Replace name/info column td width (193 = 250 - 55 - 2)
+html = html.replace('<td width="193" style="vertical-align:top;">',
+                   '<td :width="nameColumnWidth" style="vertical-align:top;">')
+
+# Replace right section td width
+html = html.replace('<td width="125" style="vertical-align:top;">',
+                   '<td :width="rightWidth" style="vertical-align:top;">')
 
 
 # Replace separator
@@ -242,6 +264,24 @@ app_html = f"""<!DOCTYPE html>
             </div>
 
             <div class="border-t pt-4 mt-2">
+                <label class="block text-sm font-semibold mb-2 text-gray-700">Dimensiones de la tarjeta</label>
+                <div class="flex gap-4 mb-3">
+                    <div class="w-1/3">
+                        <label class="block text-xs font-semibold mb-1 text-gray-500">Ancho total (px)</label>
+                        <input v-model.number="form.cardWidth" type="number" min="300" max="800" class="w-full px-3 py-1 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"/>
+                    </div>
+                    <div class="w-1/3">
+                        <label class="block text-xs font-semibold mb-1 text-gray-500">Ancho izquierda (px)</label>
+                        <input v-model.number="form.leftWidth" type="number" min="150" max="500" class="w-full px-3 py-1 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"/>
+                    </div>
+                    <div class="w-1/3">
+                        <label class="block text-xs font-semibold mb-1 text-gray-500">Ancho derecha (auto)</label>
+                        <input :value="rightWidth" type="number" disabled class="w-full px-3 py-1 text-sm border border-gray-200 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t pt-4 mt-2">
                 <label class="flex items-center gap-2 text-sm font-semibold mb-2 text-gray-700 cursor-pointer">
                     <input type="checkbox" v-model="form.showSeparator" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-gray-300 transition">
                     Mostrar barra de separación
@@ -341,6 +381,9 @@ app_html = f"""<!DOCTYPE html>
                 companyWebsiteDisplay: "www.imb-cnm.csic.es",
                 companyWebsiteUrl: "https://www.imb-cnm.csic.es/en",
                 
+                cardWidth: 390,
+                leftWidth: 250,
+                
                 showSeparator: true,
                 separatorWidth: 5,
                 separatorColor: "#EBEBEB",
@@ -365,6 +408,14 @@ app_html = f"""<!DOCTYPE html>
                 if (!form.value.jobTitle) return "Puesto de trabajo";
                 return form.value.jobTitle.split('|').join('<br />');
             }});
+
+            const rightWidth = computed(() => {{
+                const sep = form.value.showSeparator ? form.value.separatorWidth : 0;
+                return form.value.cardWidth - form.value.leftWidth - sep - 10;
+            }});
+
+            const headerImageWidth = computed(() => form.value.cardWidth - 5);
+            const nameColumnWidth = computed(() => form.value.leftWidth - 55 - 2);
 
             // Functions for Tab 1
             const handleImageUpload = (event) => {{
@@ -416,7 +467,7 @@ app_html = f"""<!DOCTYPE html>
     </style>
 </head>
 <body>
-    <div style="width: 390px;">
+    <div style="width: ${{form.value.cardWidth}}px;">
         ${{htmlContent}}
     </div>
 </body>
@@ -440,6 +491,9 @@ app_html = f"""<!DOCTYPE html>
                 defaultHeaderImage,
                 formattedFullName,
                 formattedJobTitle,
+                rightWidth,
+                headerImageWidth,
+                nameColumnWidth,
                 handleImageUpload,
                 handleHeaderUpload,
                 handleSocialUpload,
