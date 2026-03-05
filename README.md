@@ -6,7 +6,8 @@ Este proyecto es una herramienta interactiva diseñada para generar firmas de co
 
 <table width="100%" border="0">
    <tr>
-      <td width="48%"><img width="584" height="874" alt="image" src="https://github.com/user-attachments/assets/6722a008-d969-4807-94e3-7e32ad333804" /></td>
+      <td width="48%"><img width="460" height="807" alt="image" src="https://github.com/user-attachments/assets/66acbde4-3670-462d-b796-6cec2d6d5dd5" />
+</td>
       <td width="4%">&nbsp;</td>
       <td width="48%"><img width="580" height="892" alt="image" src="https://github.com/user-attachments/assets/8d1abac2-b59c-452e-9345-8eb825f86d98" />
 </td>
@@ -23,6 +24,7 @@ La principal ventaja es que utiliza **estilos en línea (inline CSS)** automáti
 ## ✨ Características Principales
 
 - **Personalización en tiempo real**: Cambia nombre, cargo, enlaces y fotos con vista previa instantánea.
+- **Dimensiones configurable**: Permite ajustar dimensiones tarjeta.
 - **Barra de separación configurable**: Permite activar/desactivar la línea vertical divisora, ajustar su ancho y elegir el color corporativo.
 - **Gestión de Redes Sociales**: Añade o quita redes sociales de forma dinámica.
 - **Descarga Directa**: Genera un archivo `.html` autónomo que puedes abrir e importar fácilmente.
@@ -71,5 +73,6 @@ Si deseas adaptar este generador a otra empresa:
 
 ---
 *Desarrollado para el IMB-CNM (CSIC).*
+
 
 
